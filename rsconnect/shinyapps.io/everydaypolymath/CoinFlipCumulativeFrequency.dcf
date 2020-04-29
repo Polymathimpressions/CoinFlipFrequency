@@ -1,0 +1,12 @@
+name: CoinFlipCumulativeFrequency
+title: CoinFlipCumulativeFrequency
+username:
+account: everydaypolymath
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 2211965
+bundleId: 3082801
+url: https://everydaypolymath.shinyapps.io/CoinFlipCumulativeFrequency/
+when: 1588187827.8741
+asMultiple: FALSE
+asStatic: FALSE

@@ -1,0 +1,91 @@
+---
+title: "Cumulative Frequency of Heads in a Coin Flip"
+author: "Keith Krause"
+date: "4/29/2020"
+output:
+  slidy_presentation: default
+  ioslides_presentation: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Overview
+
+The purpose of this presentation is to highlight my RStudio shiny application that I developed as the final project for Coursera's Developing Data Products Course.  The application can be used to demonstrate the concept of cumulative frequency over a differing number of outcomes by utilizing a very basic, non-biased coin flip model.  
+## Application Features
+
+- An input slider that can be adjusted from 10 to 10,000 outcomes (flips of the coin)
+- As the slider is adjusted, an interactive plotly line plot is displayed as a result of server calculations
+- An orange reference line is displayed at 0.5 frequency equal to the probability of a non-biased coin
+
+The App can be found at https://everydaypolymath.shinyapps.io/CoinFlipCumulativeFrequency/
+ui.R and server.R can be found at 
+
+## UI Code
+The below code was writen to develope the user interface.
+```{r UIcode, echo = FALSE}
+#load packages
+library(shiny)
+library(plotly)
+
+# Define UI for application that draws a line plot
+shinyUI(fluidPage(
+
+    # Application title
+    titlePanel("Cumulative Frequency of Heads in Coin Flip"),
+
+    # Sidebar with a slider input for number of bins
+    sidebarLayout(
+        sidebarPanel(
+            h4("By adjusting the number of outcomes, the plot will display the cumulative frequency for the outcome of heads."),
+            sliderInput("flips",
+                        "Select Number of Flips:",
+                        min = 10,
+                        max = 10000,
+                        value = 100)
+        ),
+
+        # Show a plot of the cumulative frequency
+        mainPanel(
+            plotlyOutput(outputId= "headsplot"), width = 8
+        )
+    )
+))
+```
+
+## Server Code
+The below code runs the functions to create the displayed plot.  
+```{r server, echo=FALSE}
+library(shiny)
+library(plotly)
+
+# Define server logic required to draw a histogram
+shinyServer(function(input, output) {
+
+    output$headsplot <- renderPlotly({
+
+        # generate outcomes based on input$flips from ui.R
+        set.seed(888)
+        coin<- c("heads","tails")
+        num_flips<- input$flips
+        outcomes<- sample(coin, size = num_flips, replace = TRUE)
+        
+        #calculate Cumulative Frequency of Heads
+        heads_freq <- cumsum(outcomes == 'heads') / 1:num_flips
+
+        # draw the line plot with the specified number of flips
+        plot_ly(x=1:num_flips,y=heads_freq, type = "scatter", mode="lines") %>%
+            layout(title="Cumulative Frequency of Heads", 
+                   xaxis=list(showgrid=T, zeroline=T, nticks=0, showline=T, title="Flip Index"),
+                   yaxis=list(nticks=10, title="Relative Frequency")) %>%
+            add_segments(x =0 , xend = num_flips, y = 0.5, yend = 0.5)%>%
+            hide_legend()
+    })
+
+})
+
+```
+
+

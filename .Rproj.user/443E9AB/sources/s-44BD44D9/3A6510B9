@@ -1,0 +1,25 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1588186733710.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "3A6510B9",
+    "lastKnownWriteTime" : 1588187697,
+    "last_content_update" : 1588187697338,
+    "path" : "~/R/CoinFlipFrequency/ui.R",
+    "project_path" : "ui.R",
+    "properties" : {
+        "cursorPosition" : "26,2",
+        "scrollLine" : "0"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
